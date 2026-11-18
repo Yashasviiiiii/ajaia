@@ -2,10 +2,6 @@
   "version": 2,
   "buildCommand": "npm run build",
   "framework": "vite",
-  "projectSettings": {
-    "sourceFilesOutsideRootDirectory": false
-  },
-  "envPrefix": "VITE_",
   "env": {
     "VITE_API_URL": "@api_url"
   },
