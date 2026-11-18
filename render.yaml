@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: ajaia-docs-api
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        scope: all
+        description: "JWT secret key - set in environment"
+      - key: DATABASE_URL
+        scope: all
+        description: "Database URL - defaults to SQLite"
+        value: "sqlite:///./app.db"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+  - type: postgres
+    name: ajaia-docs-db
+    region: oregon
+    plan: free
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: "Allow all (for demo)"
+    preDeployCommand: "PGPASSWORD=$DATABASE_PASSWORD psql -h $DATABASE_HOST -U $DATABASE_USER -d $DATABASE_NAME -f /tmp/schema.sql"
