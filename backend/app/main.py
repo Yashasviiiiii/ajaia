@@ -10,7 +10,7 @@ from .security import hash_password
 app = FastAPI(title="Collaborative Document API")
 
 # Get CORS origins from environment or use defaults
-cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,https://ajaia-frontend-eosin.vercel.app").split(",")
 cors_origins = [origin.strip() for origin in cors_origins]
 
 app.add_middleware(
